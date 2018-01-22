@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ASPNetCoreV1.Data.Interfaces;
+using ASPNetCoreV1.Data.Mocks;
 
-namespace ASPNetCoreV1._0
+namespace ASPNetCoreV1
 {
     public class Startup
     {
@@ -16,6 +18,9 @@ namespace ASPNetCoreV1._0
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<ICategoryRepository, MockCategoryRepository>();
+            services.AddTransient<IDrinkRepository, MockDrinkRepository>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -23,15 +28,14 @@ namespace ASPNetCoreV1._0
         {
             loggerFactory.AddConsole();
 
-            if (env.IsDevelopment())
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
+            app.UseStaticFiles();
+            app.UseMvc(r =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
+                r.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
             });
+                
         }
     }
 }

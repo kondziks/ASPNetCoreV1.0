@@ -1,0 +1,15 @@
+﻿@using ASPNetCoreV1.Data.Models
+@model IEnumerable<Drink>
+
+    <div>
+        <h2>All drinks are listed here!</h2>
+    </div>
+    @{
+        foreach(var item in Model)
+        {
+            <div><h2>@item.Name</h2></div>
+            <div>Price: @item.Price</div>
+            <div>Short description: @item.ShortDescription</div>
+            <img src=@item.ImgThumbnailUrl alt="Załadowano niepoprawnie." width="100" height="100"/>
+        }
+    }

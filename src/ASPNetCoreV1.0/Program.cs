@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ASPNetCoreV1._0
+namespace ASPNetCoreV1
 {
     public class Program
     {
